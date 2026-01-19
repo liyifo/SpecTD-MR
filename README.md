@@ -16,11 +16,13 @@ In this work, we propose SpecTD-MR, a novel framework designed to address the li
 
 ## 🌟 Key Contributions
 
-- We propose a Disease Spectrum-aware Hypergraph Learning module to overcome the fragmentation of disease spectra. This module unifies pathologically related diseases into cohesive, spectrum-aware representations.
+- We propose SpecTD-MR, a unified framework that synergistically addresses the limitations of fragmented disease spectra and coarse-grained implicit disease evolution. By rethinking diagnosis codes as interconnected components of latent disease spectra and shifting from holistic hidden states to explicit dependency inference, SpecTD-MR offers a more clinically grounded approach to EHR modeling.
 
-- We introduce a Time-evolving Dependency Modeling module to explicitly quantify dependency strength and accurately model the process of disease evolution. This module synergizes disease spectrum with time-evolving dependency to adaptively regulate the transition of patient health states. 
+- We develop a Disease Spectrum-aware Hypergraph Learning module to overcome the fragmentation of disease spectra. Unlike existing methods that isolate clinically related diagnoses, we employ task-guided dual-path clustering with contrastive alignment. This novel approach unifies disparate but pathologically similar concepts into cohesive representations, effectively bridging the semantic gap in sparse clinical data. 
 
-- We propose SpecTD-MR, a unified framework that synergistically addresses the limitations of fragmented disease spectra and coarse-grained implicit disease evolution, and clearly outperforms state-of-the-art baselines on real-world datasets while providing interpretable insights into dynamic disease evolution.
+- We introduce a Time-evolving Dependency Modeling module that explicitly quantifies fine-grained dependency strengths and models the process of disease evolution. This module enables adaptive, pathology-driven state transitions based on disease evolution intensity rather than generic temporal updates.
+
+- Extensive experiments on MIMIC-III and MIMIC-IV demonstrate that SpecTD-MR clearly outperforms state-of-the-art baselines. Beyond accuracy, our framework provides transparent and interpretable reasoning for its recommendations by visualizing dynamic disease dependencies and spectrum structures, which is crucial for trusted clinical decision support.
 
 ## 🏗️ Model Architecture
 ![SpecTD-MR framework](doc/framework.png)
