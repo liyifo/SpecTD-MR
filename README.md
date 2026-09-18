@@ -23,7 +23,7 @@ In this work, we propose SpecTD-MR, a novel framework designed to address the li
 - We propose SpecTD-MR, a unified framework that synergistically addresses the limitations of fragmented disease spectra and coarse-grained implicit disease evolution, and clearly outperforms state-of-the-art baselines on real-world datasets while providing interpretable insights into dynamic disease evolution.
 
 ## 🏗️ Model Architecture
-![SpecTD-MR framework](doc/framework.png)
+![SpecTD-MR framework](docs/framework.png)
 
 ## ⚙️ Setup
 ### Environment
