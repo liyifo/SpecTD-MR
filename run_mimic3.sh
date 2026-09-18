@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PYTHONHASHSEED=1203 python -B -m pretrain.train_pretrain \
+  --struct-emb-path data/MIMIC-III/emb/struct_deepwalk.pt \
+  --text-emb-path data/MIMIC-III/emb/text_embeddings.pt \
+  --logic-emb-path data/MIMIC-III/emb/logic_embeddings.pt \
+  --records-path data/MIMIC-III/records_final.pkl \
+  --voc-path data/MIMIC-III/voc_final.pkl \
+  --ddi-path data/MIMIC-III/ddi_A_final.pkl \
+  --batch-size 64 \
+  --lr 0.001 \
+  --feature-dim 64 \
+  --hidden-dim 128 \
+  --mask-mode bert \
+  --mask-token-prob 0.8 \
+  --mask-random-prob 0.1 \
+  --dropout 0.1 \
+  --weight-decay 0.0001 \
+  --num-layers 2 \
+  --mlp-layers 2 \
+  --heads 4 \
+  --num-clusters 5 \
+  --cluster-weight 0.75 \
+  --alignment-weight 0.05 \
+  --warmup1-epochs 50 \
+  --warmup2-epochs 80 \
+  --warmup2-patience 10 \
+  --warmup2-best-path pretrain_logs/mimic3-two-stage/mimic3-run-01/warmup2_best.pt \
+  --epochs 120 \
+  --full-patience 15 \
+  --full-best-path pretrain_logs/mimic3-two-stage/mimic3-run-01/stage1_full_best.pt \
+  --log-dir pretrain_logs/mimic3-two-stage/mimic3-run-01/stage1 \
+  --save-checkpoint \
+  --device cuda:0 \
+  --python-seed 1203 \
+  --numpy-seed 2048 \
+  --torch-seed 1203
+
+PYTHONHASHSEED=1203 python -B -m recommender.train_downstream \
+  --records-path data/MIMIC-III/records_final.pkl \
+  --voc-path data/MIMIC-III/voc_final.pkl \
+  --struct-emb-path data/MIMIC-III/emb/struct_deepwalk.pt \
+  --text-emb-path data/MIMIC-III/emb/text_embeddings.pt \
+  --logic-emb-path data/MIMIC-III/emb/logic_embeddings.pt \
+  --ddi-path data/MIMIC-III/ddi_A_final.pkl \
+  --concept-cooccurrence-path data/MIMIC-III/concept_cooccurrence.pkl \
+  --pretrain-checkpoint pretrain_logs/mimic3-two-stage/mimic3-run-01/stage1/nc5_h4_fd64_clw0.75_alw0.05/stage1_final.pt \
+  --sequence-encoder tgct \
+  --seq-hidden-dim 128 \
+  --epochs 80 \
+  --batch-size 16 \
+  --lr 0.0005 \
+  --lr-stage1 0.00002 \
+  --weight-decay 0.0001 \
+  --seq-dropout 0.1 \
+  --early-stopping-patience 20 \
+  --lr-scheduler-patience 4 \
+  --lr-scheduler-factor 0.5 \
+  --bootstrap-rounds 10 \
+  --log-dir downstream_logs/mimic3-two-stage/mimic3-run-01 \
+  --device cuda:0 \
+  --python-seed 1203 \
+  --numpy-seed 2048 \
+  --torch-seed 1203

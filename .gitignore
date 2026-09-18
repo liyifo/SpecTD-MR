@@ -1,0 +1,66 @@
+# Private clinical data and generated embeddings.
+# Keep preprocessing source files under data/, but never commit MIMIC data.
+/data/**
+!/data/
+!/data/**/
+!/data/**/*.py
+
+# Training outputs, checkpoints, and experiment artifacts
+/pretrain_logs/
+/downstream_logs/
+/search_logs/
+/saved/
+**/logs/
+*.pt
+*.pth
+*.ckpt
+*.model
+*.pkl
+*.npy
+*.npz
+*.jsonl
+*.log
+
+# Generated plots written by root-level analysis scripts
+/parameter_*.pdf
+/jaccard_analysis.png
+
+# Local backup files
+/recommender/model copy.py
+/旧文件/
+*~
+*.bak
+*.orig
+
+# Python virtual environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+
+# Coverage and packaging outputs
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Notebook, editor, and operating-system files
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
